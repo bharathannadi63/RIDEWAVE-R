@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>RideWave</h1>
+        <h2>Drive Your Dream</h2>
+        <p>Experience the thrill of premium motorcycle rentals</p>
+        <a href="{{ url_for('explore') }}" class="cta-button">Explore Bikes</a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <h3>Premium Selection</h3>
+        <p>Choose from our collection of high-end motorcycles</p>
+    </div>
+    <div class="feature-card">
+        <h3>Easy Booking</h3>
+        <p>Simple and secure booking process</p>
+    </div>
+    <div class="feature-card">
+        <h3>24/7 Support</h3>
+        <p>Round-the-clock customer assistance</p>
+    </div>
+</section>
+{% endblock %} 

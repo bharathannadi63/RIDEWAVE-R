@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h1>Admin Dashboard</h1>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h2>Total Users</h2>
+            <p class="stat-number">{{ total_users }}</p>
+        </div>
+        <div class="stat-card">
+            <h2>Total Bookings</h2>
+            <p class="stat-number">{{ total_bookings }}</p>
+        </div>
+        <div class="stat-card">
+            <h2>Active Bookings</h2>
+            <p class="stat-number">{{ active_bookings }}</p>
+        </div>
+        <div class="stat-card">
+            <h2>Total Revenue</h2>
+            <p class="stat-number">₹{{ total_revenue }}</p>
+        </div>
+    </div>
+    
+    <div class="admin-actions">
+        <a href="{{ url_for('admin_bookings') }}" class="admin-button">Manage Bookings</a>
+        <a href="{{ url_for('admin_users') }}" class="admin-button">Manage Users</a>
+    </div>
+</div>
+{% endblock %} 

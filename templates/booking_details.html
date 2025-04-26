@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="booking-details-container">
+    <div class="booking-details-card">
+        <h1>Booking Details</h1>
+        
+        <div class="booking-info">
+            <div class="booking-header">
+                <h2>{{ booking.bike.name }} {{ booking.bike.model }}</h2>
+                <span class="booking-status {{ booking.status }}">{{ booking.status }}</span>
+            </div>
+            
+            <div class="booking-details-grid">
+                <div class="detail-group">
+                    <h3>Booking Information</h3>
+                    <p><strong>Booking ID:</strong> #{{ booking.id }}</p>
+                    <p><strong>Booking Date:</strong> {{ booking.created_at.strftime('%d %B %Y') }}</p>
+                    <p><strong>Status:</strong> {{ booking.status|title }}</p>
+                </div>
+                
+                <div class="detail-group">
+                    <h3>Rental Period</h3>
+                    <p><strong>Pickup Date:</strong> {{ booking.pickup_date.strftime('%d %B %Y') }}</p>
+                    <p><strong>Return Date:</strong> {{ booking.return_date.strftime('%d %B %Y') }}</p>
+                    <p><strong>Duration:</strong> {{ (booking.return_date - booking.pickup_date).days }} days</p>
+                </div>
+                
+                <div class="detail-group">
+                    <h3>Bike Details</h3>
+                    <p><strong>Category:</strong> {{ booking.bike.category|title }}</p>
+                    <p><strong>Daily Rate:</strong> ₹{{ booking.bike.price }}</p>
+                    <p><strong>Total Cost:</strong> ₹{{ booking.total_cost }}</p>
+                </div>
+            </div>
+            
+            <div class="bike-image">
+                <img src="{{ url_for('static', filename='images/' + booking.bike.image) }}" alt="{{ booking.bike.name }}">
+            </div>
+        </div>
+        
+        <div class="booking-actions">
+            {% if booking.status == 'upcoming' %}
+                <a href="{{ url_for('cancel_booking', booking_id=booking.id) }}" class="cancel-button">Cancel Booking</a>
+            {% endif %}
+            <a href="{{ url_for('bookings') }}" class="back-button">Back to Bookings</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

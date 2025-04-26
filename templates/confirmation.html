@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="confirmation-section">
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <h1>Booking Confirmed!</h1>
+            <div class="confirmation-details">
+                <div class="bike-info">
+                    <h2>{{ bike.name }} {{ bike.model }}</h2>
+                    <img src="{{ url_for('static', filename='images/' + bike.image) }}" alt="{{ bike.name }} {{ bike.model }}" class="bike-image">
+                </div>
+                <div class="booking-info">
+                    <h3>Booking Details</h3>
+                    <p><strong>Pickup Date:</strong> {{ pickup_date }}</p>
+                    <p><strong>Return Date:</strong> {{ return_date }}</p>
+                    <p><strong>Duration:</strong> {{ duration }} days</p>
+                    <p><strong>Daily Rate:</strong> ₹{{ bike.price }}/day</p>
+                    <p><strong>Total Cost:</strong> ₹{{ total_cost }}</p>
+                </div>
+                <div class="pickup-info">
+                    <h3>Pickup Location</h3>
+                    <p>RideWave Store</p>
+                    <p>123 Main Street</p>
+                    <p>Narayanguda, Hyderabad</p>
+                    <p>Phone: 6303274056</p>
+                </div>
+            </div>
+            <div class="confirmation-message">
+                <p>Your booking has been confirmed! Please bring your ID and driving license when picking up the bike.</p>
+                <p>We look forward to serving you at our RideWave store!</p>
+            </div>
+            <div class="confirmation-actions">
+                <a href="{{ url_for('bookings') }}" class="btn">View My Bookings</a>
+                <a href="{{ url_for('explore') }}" class="btn">Book Another Bike</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-bookings">
+    <h1>Manage Bookings</h1>
+    
+    <div class="bookings-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>User</th>
+                    <th>Bike</th>
+                    <th>Pickup Date</th>
+                    <th>Return Date</th>
+                    <th>Total Cost</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>#{{ booking.id }}</td>
+                    <td>{{ booking.user.username }}</td>
+                    <td>{{ booking.bike.name }} {{ booking.bike.model }}</td>
+                    <td>{{ booking.pickup_date.strftime('%d %B %Y') }}</td>
+                    <td>{{ booking.return_date.strftime('%d %B %Y') }}</td>
+                    <td>₹{{ booking.total_cost }}</td>
+                    <td>
+                        <span class="status-badge {{ booking.status }}">{{ booking.status }}</span>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('update_booking_status', booking_id=booking.id) }}" method="POST" class="status-form">
+                            <select name="status" onchange="this.form.submit()">
+                                <option value="upcoming" {% if booking.status == 'upcoming' %}selected{% endif %}>Upcoming</option>
+                                <option value="completed" {% if booking.status == 'completed' %}selected{% endif %}>Completed</option>
+                                <option value="cancelled" {% if booking.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="admin-actions">
+        <a href="{{ url_for('admin_dashboard') }}" class="admin-button">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %} 

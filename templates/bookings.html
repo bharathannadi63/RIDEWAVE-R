@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bookings-section">
+    <h1>My Bookings</h1>
+    
+    {% if bookings %}
+        <div class="bookings-grid">
+            {% for booking in bookings %}
+            <div class="booking-card">
+                <div class="booking-header">
+                    <h2>{{ booking.bike_name }} {{ booking.bike_model }}</h2>
+                    <span class="booking-status {{ booking.status }}">{{ booking.status }}</span>
+                </div>
+                <div class="booking-details">
+                    <p><strong>Booking ID:</strong> #{{ booking.id }}</p>
+                    <p><strong>Pickup Date:</strong> {{ booking.pickup_date }}</p>
+                    <p><strong>Return Date:</strong> {{ booking.return_date }}</p>
+                    <p><strong>Duration:</strong> {{ booking.duration }} days</p>
+                    <p><strong>Total Cost:</strong> ₹{{ booking.total_cost }}</p>
+                </div>
+                <div class="booking-actions">
+                    {% if booking.status == 'upcoming' %}
+                        <a href="{{ url_for('cancel_booking', booking_id=booking.id) }}" class="cancel-button">Cancel Booking</a>
+                    {% endif %}
+                    <a href="{{ url_for('booking_details', booking_id=booking.id) }}" class="details-button">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-bookings">
+            <p>You haven't made any bookings yet.</p>
+            <a href="{{ url_for('explore') }}" class="explore-button">Explore Bikes</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %} 

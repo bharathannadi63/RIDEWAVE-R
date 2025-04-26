@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h1>User Management</h1>
+    
+    <div class="users-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Total Bookings</th>
+                    <th>Total Spent</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <span class="role-badge {% if user.is_admin %}admin{% else %}user{% endif %}">
+                            {% if user.is_admin %}Admin{% else %}User{% endif %}
+                        </span>
+                    </td>
+                    <td>{{ user.total_bookings }}</td>
+                    <td>${{ "%.2f"|format(user.total_spent) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="admin-actions">
+        <a href="{{ url_for('admin_dashboard') }}" class="admin-button">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %} 
